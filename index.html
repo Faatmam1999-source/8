@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT361 - Module 8 Comprehensive Quiz</title>
+    <title>IT361 - Module 8 Ultimate Interactive Quiz</title>
     <style>
         :root {
             --primary-color: #0076a3;
@@ -11,9 +11,6 @@
             --bg-color: #faf8f5;
             --card-bg: #ffffff;
             --text-color: #333333;
-            --success-color: #2ecc71;
-            --error-color: #e74c3c;
-            --gray-color: #7f8c8d;
         }
 
         body {
@@ -57,7 +54,7 @@
         .progress-bar {
             background-color: var(--primary-color);
             height: 8px;
-            width: 6.6%;
+            width: 4%;
             transition: width 0.3s ease;
         }
 
@@ -81,19 +78,6 @@
             color: var(--secondary-color);
         }
 
-        .code-block {
-            background: #272822;
-            color: #f8f8f2;
-            padding: 12px;
-            border-radius: 6px;
-            font-family: 'Courier New', Courier, monospace;
-            text-align: left;
-            margin-bottom: 15px;
-            overflow-x: auto;
-            font-size: 14px;
-            white-space: pre;
-        }
-
         .options-list {
             list-style: none;
             padding: 0;
@@ -104,24 +88,46 @@
             margin-bottom: 12px;
         }
 
-        .option-label {
+        /* Standard styling for choices */
+        .option-btn {
             display: block;
+            width: 100%;
             padding: 14px 15px;
             background: #f8f9fa;
             border: 1px solid #dcdde1;
             border-radius: 6px;
             cursor: pointer;
-            transition: background 0.2s;
+            text-align: left;
             font-size: 15px;
+            font-family: inherit;
+            color: var(--text-color);
+            transition: all 0.2s ease;
         }
 
-        .option-label:hover {
-            background: #f1f2f6;
+        .option-btn:hover {
+            background: #eef2f5;
         }
 
-        .option-item input[type="radio"] {
-            margin-right: 12px;
-            transform: scale(1.1);
+        /* Feedback Status classes applied via JS */
+        .correct-ans {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb !important;
+            color: #155724 !important;
+            font-weight: bold;
+        }
+
+        .incorrect-ans {
+            background-color: #f8d7da !important;
+            border-color: #f5c6cb !important;
+            color: #721c24 !important;
+        }
+
+        .disabled-group .option-btn {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        .disabled-group .correct-ans, .disabled-group .incorrect-ans {
+            opacity: 1 !important; /* Keep verified items clearly visible */
         }
 
         .navigation-buttons {
@@ -200,175 +206,274 @@
 
 <div class="container">
     <div class="header">
-        <h1>IT361: Web Technologies - Module 8 Quiz (DOM)</h1>
-        <p id="question-counter">Question 1 of 15</p>
+        <h1>IT361: Web Technologies - Module 8 Comprehensive Quiz</h1>
+        <p id="question-counter">Question 1 of 25</p>
     </div>
 
     <div class="progress-container">
         <div class="progress-bar" id="progress-bar"></div>
     </div>
 
-    <form id="quiz-form">
+    <div id="quiz-form">
         <div class="question-card active" data-q="1">
             <div class="question-text">Q1: What does the acronym DOM stand for?</div>
-            <ul class="options-list">
-                <li class="option-item"><label class="option-label"><input type="radio" name="q1" value="A"> Document Orientation Model</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q1" value="B"> Data Object Management</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q1" value="C"> Document Object Model</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q1" value="D"> Dynamic Output Mapping</label></li>
-            </ul>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(1, 'A', this)">A) Document Orientation Model</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(1, 'B', this)">B) Data Object Management</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(1, 'C', this)">C) Document Object Model</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(1, 'D', this)">D) Dynamic Output Mapping</button></div>
+            </div>
         </div>
 
         <div class="question-card" data-q="2">
-            <div class="question-text">Q2: According to Module 8, the DOM translates document markup into a format that can be understood by which language?</div>
-            <ul class="options-list">
-                <li class="option-item"><label class="option-label"><input type="radio" name="q2" value="A"> PHP</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q2" value="B"> CSS3</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q2" value="C"> SQL</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q2" value="D"> JavaScript</label></li>
-            </ul>
+            <div class="question-text">Q2: The DOM translates document markup into a structured format that can be understood and manipulated by which language?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(2, 'A', this)">A) PHP</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(2, 'B', this)">B) CSS3</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(2, 'C', this)">C) SQL</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(2, 'D', this)">D) JavaScript</button></div>
+            </div>
         </div>
 
         <div class="question-card" data-q="3">
-            <div class="question-text">Q3: Every piece of an HTML5 page (elements, attributes, text, etc.) is modeled in the web browser by a DOM:</div>
-            <ul class="options-list">
-                <li class="option-item"><label class="option-label"><input type="radio" name="q3" value="A"> Node</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q3" value="B"> Selector</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q3" value="C"> Tag</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q3" value="D"> Query</label></li>
-            </ul>
+            <div class="question-text">Q3: Every piece of an HTML5 page (elements, attributes, text) is modeled in the web browser view by a DOM:</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(3, 'A', this)">A) Node</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(3, 'B', this)">B) Selector</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(3, 'C', this)">C) Tag</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(3, 'D', this)">D) Query</button></div>
+            </div>
         </div>
 
         <div class="question-card" data-q="4">
-            <div class="question-text">Q4: Nodes with the exact same parent node in a DOM tree structure are referred to as:</div>
-            <ul class="options-list">
-                <li class="option-item"><label class="option-label"><input type="radio" name="q4" value="A"> Ancestors</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q4" value="B"> Siblings</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q4" value="C"> Roots</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q4" value="D"> Children</label></li>
-            </ul>
+            <div class="question-text">Q4: Nodes that share the exact same parent node in a DOM hierarchical structure are explicitly referred to as:</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(4, 'A', this)">A) Ancestors</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(4, 'B', this)">B) Siblings</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(4, 'C', this)">C) Roots</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(4, 'D', this)">D) Children</button></div>
+            </div>
         </div>
 
         <div class="question-card" data-q="5">
-            <div class="question-text">Q5: Which node in a DOM tree is explicitly called the root node because it has no parent?</div>
-            <ul class="options-list">
-                <li class="option-item"><label class="option-label"><input type="radio" name="q5" value="A"> body</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q5" value="B"> head</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q5" value="C"> html</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q5" value="D"> document</label></li>
-            </ul>
-        </ul>
+            <div class="question-text">Q5: Which node in a DOM structure tree is uniquely identified as the root node because it has no parent?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(5, 'A', this)">A) body</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(5, 'B', this)">B) head</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(5, 'C', this)">C) html</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(5, 'D', this)">D) document</button></div>
+            </div>
         </div>
 
         <div class="question-card" data-q="6">
-            <div class="question-text">Q6: Which object identifies the web page itself and contains standard methods for accessing elements?</div>
-            <ul class="options-list">
-                <li class="option-item"><label class="option-label"><input type="radio" name="q6" value="A"> window</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q6" value="B"> document</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q6" value="C"> body</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q6" value="D"> element</label></li>
-            </ul>
+            <div class="question-text">Q6: Which global object manages and identifies the open web page itself within the browser environment?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(6, 'A', this)">A) window</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(6, 'B', this)">B) document</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(6, 'C', this)">C) body</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(6, 'D', this)">D) element</button></div>
+            </div>
         </div>
 
         <div class="question-card" data-q="7">
-            <div class="question-text">Q7: What does the method document.getElementsByTagName("p") return?</div>
-            <ul class="options-list">
-                <li class="option-item"><label class="option-label"><input type="radio" name="q7" value="A"> A single element node representing the first paragraph</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q7" value="B"> Every paragraph on the page, wrapped in a collection or nodeList</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q7" value="C"> An array of text strings containing paragraph text contents</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q7" value="D"> The structural attributes associated with paragraph blocks</label></li>
-            </ul>
+            <div class="question-text">Q7: What type of data format is returned by calling the standard method document.getElementsByTagName("p")?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(7, 'A', this)">A) A single isolated node representing the first matching instance</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(7, 'B', this)">B) A node collection / NodeList containing all matching elements</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(7, 'C', this)">C) A basic multidimensional array of raw text values</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(7, 'D', this)">D) A single boolean confirmation value</button></div>
+            </div>
         </div>
 
         <div class="question-card" data-q="8">
-            <div class="question-text">Q8: Which method should be used to access a single specific DOM node by referencing its unique ID attribute value?</div>
-            <ul class="options-list">
-                <li class="option-item"><label class="option-label"><input type="radio" name="q8" value="A"> document.getElementsByClassName()</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q8" value="B"> document.getElementById()</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q8" value="C"> document.getElementsByTagName()</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q8" value="D"> document.querySelector()</label></li>
-            </ul>
+            <div class="question-text">Q8: Which built-in method target retrieves a single specific DOM node by referencing its unique designated id value?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(8, 'A', this)">A) document.getElementsByClassName()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(8, 'B', this)">B) document.getElementById()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(8, 'C', this)">C) document.getElementsByTagName()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(8, 'D', this)">D) document.querySelector()</button></div>
+            </div>
         </div>
 
         <div class="question-card" data-q="9">
-            <div class="question-text">Q9: Which DOM element methods allow you to modify an attribute value and retrieve an attribute value respectively?</div>
-            <ul class="options-list">
-                <li class="option-item"><label class="option-label"><input type="radio" name="q9" value="A"> setAttribute() and getAttribute()</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q9" value="B"> changeAttribute() and fetchAttribute()</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q9" value="C"> replaceAttribute() and selectAttribute()</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q9" value="D"> createAttribute() and removeAttribute()</label></li>
-            </ul>
+            <div class="question-text">Q9: Which pair of element methods allow you to modify an attribute value and retrieve an attribute value respectively?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(9, 'A', this)">A) setAttribute() and getAttribute()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(9, 'B', this)">B) changeAttribute() and fetchAttribute()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(9, 'C', this)">C) replaceAttribute() and selectAttribute()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(9, 'D', this)">D) createAttribute() and removeAttribute()</button></div>
+            </div>
         </div>
 
         <div class="question-card" data-q="10">
-            <div class="question-text">Q10: Which simple method is used for accessing and changing both the text and markup markup inside an HTML element?</div>
-            <ul class="options-list">
-                <li class="option-item"><label class="option-label"><input type="radio" name="q10" value="A"> style</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q10" value="B"> innerHTML</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q10" value="C"> setAttribute</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q10" value="D"> parentNode</label></li>
-            </ul>
+            <div class="question-text">Q10: Which simple dynamic property is used to access and change both raw text contents and nested HTML markup codes inside an element?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(10, 'A', this)">A) style</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(10, 'B', this)">B) innerHTML</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(10, 'C', this)">C) setAttribute</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(10, 'D', this)">D) parentNode</button></div>
+            </div>
         </div>
 
         <div class="question-card" data-q="11">
-            <div class="question-text">Q11: In JavaScript and the DOM, CSS property names that contain hyphens (such as background-color) are converted into:</div>
-            <ul class="options-list">
-                <li class="option-item"><label class="option-label"><input type="radio" name="q11" value="A"> Uppercase strings</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q11" value="B"> Camel case names</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q11" value="C"> Lowercase underscore names</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q11" value="D"> Static constants</label></li>
-            </ul>
+            <div class="question-text">Q11: When accessing style properties via JavaScript, standard CSS property names that contain hyphens (e.g., background-color) are automatically converted into:</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(11, 'A', this)">A) Uppercase names</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(11, 'B', this)">B) Camel case names</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(11, 'C', this)">C) Lowercase underscore titles</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(11, 'D', this)">D) Static system constants</button></div>
+            </div>
         </div>
 
         <div class="question-card" data-q="12">
-            <div class="question-text">Q12: Does the method document.createElement() automatically insert the created node onto the page view?</div>
-            <ul class="options-list">
-                <li class="option-item"><label class="option-label"><input type="radio" name="q12" value="A"> Yes, it automatically inserts it at the top of the body branch</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q12" value="B"> No, it creates a new DOM node but does not insert it on the page automatically</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q12" value="C"> Yes, it overwrites the current root node immediately</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q12" value="D"> No, it can only create temporary attributes, not structural elements</label></li>
-            </ul>
+            <div class="question-text">Q12: Does the method document.createElement() automatically insert the freshly constructed structural node onto the view page?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(12, 'A', this)">A) Yes, it automatically adds it at the start of the body branch</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(12, 'B', this)">B) No, it creates a node structure in memory but does not insert it onto the active page view</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(12, 'C', this)">C) Yes, it replaces the current root document reference immediately</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(12, 'D', this)">D) No, it can only manage style rules, not physical element types</button></div>
+            </div>
         </div>
 
         <div class="question-card" data-q="13">
-            <div class="question-text">Q13: Which method is used to insert a child node AFTER any existing children of the node it is called on?</div>
-            <ul class="options-list">
-                <li class="option-item"><label class="option-label"><input type="radio" name="q13" value="A"> insertBefore()</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q13" value="B"> appendChild()</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q13" value="C"> replaceChild()</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q13" value="D"> createTextNode()</label></li>
-            </ul>
+            <div class="question-text">Q13: Which method inserts a designated child node into a targeted structure AFTER any currently existing child elements?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(13, 'A', this)">A) insertBefore()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(13, 'B', this)">B) appendChild()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(13, 'C', this)">C) replaceChild()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(13, 'D', this)">D) createTextNode()</button></div>
+            </div>
         </div>
 
         <div class="question-card" data-q="14">
-            <div class="question-text">Q14: Which property is used to return the direct parent node of a specified element node within the tree?</div>
-            <ul class="options-list">
-                <li class="option-item"><label class="option-label"><input type="radio" name="q14" value="A"> parentNode</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q14" value="B"> childNodes</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q14" value="C"> rootNode</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q14" value="D"> siblingNode</label></li>
-            </ul>
+            <div class="question-text">Q14: Which property is used to navigate up the DOM tree hierarchy to retrieve the direct parent reference of a node?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(14, 'A', this)">A) parentNode</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(14, 'B', this)">B) childNodes</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(14, 'C', this)">C) rootNode</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(14, 'D', this)">D) siblingNode</button></div>
+            </div>
         </div>
 
         <div class="question-card" data-q="15">
-            <div class="question-text">Q15: Which method is used to attach an event handler function to a specified DOM element to handle behaviors like button clicks?</div>
-            <ul class="options-list">
-                <li class="option-item"><label class="option-label"><input type="radio" name="q15" value="A"> createEventListener()</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q15" value="B"> addEventListener()</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q15" value="C"> dispatchEvent()</label></li>
-                <li class="option-item"><label class="option-label"><input type="radio" name="q15" value="D"> attachHandler()</label></li>
-            </ul>
+            <div class="question-text">Q15: Which method is used to attach an event listener to a DOM object to monitor and handle actions such as user clicks?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(15, 'A', this)">A) createEventListener()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(15, 'B', this)">B) addEventListener()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(15, 'C', this)">C) dispatchEvent()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(15, 'D', this)">D) attachHandler()</button></div>
+            </div>
+        </div>
+
+        <div class="question-card" data-q="16">
+            <div class="question-text">Q16: Which object provides standard properties for obtaining collections of document elements, like 'forms' and 'images'?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(16, 'A', this)">A) body</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(16, 'B', this)">B) style</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(16, 'C', this)">C) document</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(16, 'D', this)">D) head</button></div>
+            </div>
+        </div>
+
+        <div class="question-card" data-q="17">
+            <div class="question-text">Q17: The 'length' property of a DOM NodeList collection explicitly reveals:</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(17, 'A', this)">A) The total bytes required to render the nodes</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(17, 'B', this)">B) The total number of item nodes contained within the collection</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(17, 'C', this)">C) The numerical ID of the root element parent</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(17, 'D', this)">D) The number of custom attributes bound to the style tree</button></div>
+            </div>
+        </div>
+
+        <div class="question-card" data-q="18">
+            <div class="question-text">Q18: Which method allows you to remove an existing node or a complete structural branch from the DOM tree structure?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(18, 'A', this)">A) removeChild()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(18, 'B', this)">B) deleteNode()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(18, 'C', this)">C) dropBranch()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(18, 'D', this)">D) disconnectChild()</button></div>
+            </div>
+        </div>
+
+        <div class="question-card" data-q="19">
+            <div class="question-text">Q19: To create a node that contains only raw, standalone text data string contents, you should employ:</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(19, 'A', this)">A) document.createElement()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(19, 'B', this)">B) document.createTextNode()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(19, 'C', this)">C) document.appendString()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(19, 'D', this)">D) document.writeText()</button></div>
+            </div>
+        </div>
+
+        <div class="question-card" data-q="20">
+            <div class="question-text">Q20: Which DOM method accepts exactly two node arguments to exchange an old child element with a brand new element?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(20, 'A', this)">A) insertBefore()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(20, 'B', this)">B) changeChild()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(20, 'C', this)">C) replaceChild()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(20, 'D', this)">D) appendChild()</button></div>
+            </div>
+        </div>
+
+        <div class="question-card" data-q="21">
+            <div class="question-text">Q21: Which specific property provides access to dynamic properties for managing inline styling parameters of an individual HTML element?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(21, 'A', this)">A) class</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(21, 'B', this)">B) style</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(21, 'C', this)">C) design</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(21, 'D', this)">D) theme</button></div>
+            </div>
+        </div>
+
+        <div class="question-card" data-q="22">
+            <div class="question-text">Q22: In a typical DOM map representation, HTML element containers are explicitly modeled as:</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(22, 'A', this)">A) Attribute Nodes</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(22, 'B', this)">B) Element Nodes</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(22, 'C', this)">C) Text Nodes</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(22, 'D', this)">D) Comment Nodes</button></div>
+            </div>
+        </div>
+
+        <div class="question-card" data-q="23">
+            <div class="question-text">Q23: Which structural element method allows you to insert a newly created node structure directly BEFORE a reference child element?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(23, 'A', this)">A) appendChild()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(23, 'B', this)">B) insertBefore()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(23, 'C', this)">C) pushNode()</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(23, 'D', this)">D) createTextNode()</button></div>
+            </div>
+        </div>
+
+        <div class="question-card" data-q="24">
+            <div class="question-text">Q24: According to the lecture materials, what does a web browser perform when parsing HTML markup text code?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(24, 'A', this)">A) It compiles it into native binary machine code arrays</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(24, 'B', this)">B) It builds a Document Object Model tree structure representation in memory</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(24, 'C', this)">C) It transmits JSON data vectors to server systems</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(24, 'D', this)">D) It deletes old style rules sheets completely</button></div>
+            </div>
+        </div>
+
+        <div class="question-card" data-q="25">
+            <div class="question-text">Q25: Can an element node have multiple children branches inside a valid DOM layout?</div>
+            <div class="options-list">
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(25, 'A', this)">A) Yes, an element node can house zero, one, or multiple nested child nodes</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(25, 'B', this)">B) No, elements are strictly restricted to a single text node only</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(25, 'C', this)">C) Yes, but only if it contains custom hidden matrix classes</button></div>
+                <div class="option-item"><button class="option-btn" onclick="checkImmediate(25, 'D', this)">D) No, only root nodes can support sub-branches</button></div>
+            </div>
         </div>
 
         <div class="navigation-buttons" id="nav-block">
             <button type="button" class="btn btn-prev" id="btn-prev" onclick="changeQuestion(-1)" disabled>Previous</button>
             <button type="button" class="btn btn-next" id="btn-next" onclick="changeQuestion(1)">Next</button>
         </div>
-    </form>
+    </div>
 
     <div id="result-section">
         <h2>Quiz Completed!</h2>
-        <div class="score-box" id="score-text">0 / 15</div>
+        <div class="score-box" id="score-text">0 / 25</div>
         <div class="feedback-box" id="feedback-text"></div>
         <button type="button" class="btn btn-restart" onclick="location.reload()">Restart Quiz</button>
     </div>
@@ -376,12 +481,17 @@
 
 <script>
     let currentStep = 1;
-    const totalQuestions = 15;
+    const totalQuestions = 25;
+    let score = 0;
     
+    const userHistory = {};
+
     const answers = {
         q1: 'C', q2: 'D', q3: 'A', q4: 'B', q5: 'C',
         q6: 'B', q7: 'B', q8: 'B', q9: 'A', q10: 'B',
-        q11: 'B', q12: 'B', q13: 'B', q14: 'A', q15: 'B'
+        q11: 'B', q12: 'B', q13: 'B', q14: 'A', q15: 'B',
+        q16: 'C', q17: 'B', q18: 'A', q19: 'B', q20: 'C',
+        q21: 'B', q22: 'B', q23: 'B', q24: 'B', q25: 'A'
     };
 
     function updateUI() {
@@ -401,7 +511,7 @@
         document.getElementById('btn-prev').disabled = (currentStep === 1);
         
         if (currentStep === totalQuestions) {
-            document.getElementById('btn-next').innerText = "Submit Answers";
+            document.getElementById('btn-next').innerText = "Finish & See Results";
             document.getElementById('btn-next').style.backgroundColor = "#2ecc71";
         } else {
             document.getElementById('btn-next').innerText = "Next";
@@ -409,9 +519,37 @@
         }
     }
 
+    function checkImmediate(qNum, selectedValue, targetBtn) {
+        // If question already answered, lock out duplicate triggers
+        if (userHistory[`q${qNum}`]) return;
+        
+        userHistory[`q${qNum}`] = selectedValue;
+        const correctValue = answers[`q${qNum}`];
+        const card = targetBtn.closest('.question-card');
+        
+        // Match conditions
+        if (selectedValue === correctValue) {
+            targetBtn.classList.add('correct-ans');
+            score++;
+        } else {
+            targetBtn.classList.add('incorrect-ans');
+            
+            // Immediately scan and highlight correct answer button block
+            const buttons = card.querySelectorAll('.option-btn');
+            buttons.forEach(btn => {
+                if (btn.innerText.trim().startsWith(correctValue)) {
+                    btn.classList.add('correct-ans');
+                }
+            });
+        }
+        
+        // Disable whole block selection immediately
+        card.classList.add('disabled-group');
+    }
+
     function changeQuestion(direction) {
         if (direction === 1 && currentStep === totalQuestions) {
-            calculateScore();
+            showFinalResults();
             return;
         }
 
@@ -422,16 +560,7 @@
         updateUI();
     }
 
-    function calculateScore() {
-        let score = 0;
-
-        for (let i = 1; i <= totalQuestions; i++) {
-            const selected = document.querySelector(`input[name="q${i}"]:checked`);
-            if (selected && selected.value === answers[`q${i}`]) {
-                score++;
-            }
-        }
-
+    function showFinalResults() {
         document.getElementById('quiz-form').style.display = 'none';
         document.querySelector('.progress-container').style.display = 'none';
         document.getElementById('question-counter').style.display = 'none';
@@ -441,12 +570,12 @@
         document.getElementById('score-text').innerText = `${score} / ${totalQuestions}`;
 
         const feedbackText = document.getElementById('feedback-text');
-        if (score >= 12) {
-            feedbackText.innerHTML = "<strong>Outstanding Performance!</strong><br>You have perfectly mastered Document Object Model (DOM) node traversing and manipulation techniques.";
-        } else if (score >= 8) {
-            feedbackText.innerHTML = "<strong>Good Job!</strong><br>You passed the assessment. Review DOM method definitions and event handlers to achieve perfect score.";
+        if (score >= 20) {
+            feedbackText.innerHTML = "<strong>Outstanding Performance!</strong><br>You have perfectly mastered Document Object Model (DOM) tree structure definitions and modifications!";
+        } else if (score >= 13) {
+            feedbackText.innerHTML = "<strong>Good Job!</strong><br>You passed the assessment. Review specific dynamic methods like insertBefore or appendChild to hit full marks.";
         } else {
-            feedbackText.innerHTML = "<strong>Needs Review.</strong><br>We highly recommend reviewing Chapter 12 lecture slides on structural node manipulation and trying again.";
+            feedbackText.innerHTML = "<strong>Needs Review.</strong><br>We highly recommend re-reading Module 8 structural slide materials carefully and trying again.";
         }
     }
 </script>
