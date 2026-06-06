@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT361 - Module 8 Comprehensive Quiz</title>
+    <style>
+        :root {
+            --primary-color: #0076a3;
+            --secondary-color: #004d6b;
+            --bg-color: #faf8f5;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --success-color: #2ecc71;
+            --error-color: #e74c3c;
+            --gray-color: #7f8c8d;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            direction: ltr;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 40px auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            margin: 0 0 10px 0;
+            font-size: 24px;
+        }
+
+        .progress-container {
+            background-color: #eee;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background-color: var(--primary-color);
+            height: 8px;
+            width: 6.6%;
+            transition: width 0.3s ease;
+        }
+
+        .question-card {
+            display: none; 
+            background: #fdfdfd;
+            border: 1px solid #eef2f5;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .question-card.active {
+            display: block; 
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .code-block {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: left;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            font-size: 14px;
+            white-space: pre;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+        }
+
+        .option-label {
+            display: block;
+            padding: 14px 15px;
+            background: #f8f9fa;
+            border: 1px solid #dcdde1;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 15px;
+        }
+
+        .option-label:hover {
+            background: #f1f2f6;
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.1);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-next {
+            background: var(--primary-color);
+            color: #fff;
+            flex-grow: 1;
+        }
+
+        .btn-next:hover {
+            background: var(--secondary-color);
+        }
+
+        .btn-prev {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-prev:hover {
+            background: #d5d5d5;
+        }
+
+        .btn-prev:disabled {
+            background: #f5f5f5;
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        #result-section {
+            text-align: center;
+            display: none;
+        }
+
+        #result-section h2 {
+            font-size: 28px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .score-box {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 20px 0;
+        }
+
+        .feedback-box {
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn-restart {
+            background: var(--secondary-color);
+            color: white;
+            padding: 12px 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>IT361: Web Technologies - Module 8 Quiz (DOM)</h1>
+        <p id="question-counter">Question 1 of 15</p>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <form id="quiz-form">
+        <div class="question-card active" data-q="1">
+            <div class="question-text">Q1: What does the acronym DOM stand for?</div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-label"><input type="radio" name="q1" value="A"> Document Orientation Model</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q1" value="B"> Data Object Management</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q1" value="C"> Document Object Model</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q1" value="D"> Dynamic Output Mapping</label></li>
+            </ul>
+        </div>
+
+        <div class="question-card" data-q="2">
+            <div class="question-text">Q2: According to Module 8, the DOM translates document markup into a format that can be understood by which language?</div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-label"><input type="radio" name="q2" value="A"> PHP</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q2" value="B"> CSS3</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q2" value="C"> SQL</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q2" value="D"> JavaScript</label></li>
+            </ul>
+        </div>
+
+        <div class="question-card" data-q="3">
+            <div class="question-text">Q3: Every piece of an HTML5 page (elements, attributes, text, etc.) is modeled in the web browser by a DOM:</div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-label"><input type="radio" name="q3" value="A"> Node</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q3" value="B"> Selector</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q3" value="C"> Tag</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q3" value="D"> Query</label></li>
+            </ul>
+        </div>
+
+        <div class="question-card" data-q="4">
+            <div class="question-text">Q4: Nodes with the exact same parent node in a DOM tree structure are referred to as:</div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-label"><input type="radio" name="q4" value="A"> Ancestors</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q4" value="B"> Siblings</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q4" value="C"> Roots</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q4" value="D"> Children</label></li>
+            </ul>
+        </div>
+
+        <div class="question-card" data-q="5">
+            <div class="question-text">Q5: Which node in a DOM tree is explicitly called the root node because it has no parent?</div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-label"><input type="radio" name="q5" value="A"> body</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q5" value="B"> head</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q5" value="C"> html</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q5" value="D"> document</label></li>
+            </ul>
+        </ul>
+        </div>
+
+        <div class="question-card" data-q="6">
+            <div class="question-text">Q6: Which object identifies the web page itself and contains standard methods for accessing elements?</div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-label"><input type="radio" name="q6" value="A"> window</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q6" value="B"> document</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q6" value="C"> body</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q6" value="D"> element</label></li>
+            </ul>
+        </div>
+
+        <div class="question-card" data-q="7">
+            <div class="question-text">Q7: What does the method document.getElementsByTagName("p") return?</div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-label"><input type="radio" name="q7" value="A"> A single element node representing the first paragraph</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q7" value="B"> Every paragraph on the page, wrapped in a collection or nodeList</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q7" value="C"> An array of text strings containing paragraph text contents</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q7" value="D"> The structural attributes associated with paragraph blocks</label></li>
+            </ul>
+        </div>
+
+        <div class="question-card" data-q="8">
+            <div class="question-text">Q8: Which method should be used to access a single specific DOM node by referencing its unique ID attribute value?</div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-label"><input type="radio" name="q8" value="A"> document.getElementsByClassName()</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q8" value="B"> document.getElementById()</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q8" value="C"> document.getElementsByTagName()</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q8" value="D"> document.querySelector()</label></li>
+            </ul>
+        </div>
+
+        <div class="question-card" data-q="9">
+            <div class="question-text">Q9: Which DOM element methods allow you to modify an attribute value and retrieve an attribute value respectively?</div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-label"><input type="radio" name="q9" value="A"> setAttribute() and getAttribute()</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q9" value="B"> changeAttribute() and fetchAttribute()</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q9" value="C"> replaceAttribute() and selectAttribute()</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q9" value="D"> createAttribute() and removeAttribute()</label></li>
+            </ul>
+        </div>
+
+        <div class="question-card" data-q="10">
+            <div class="question-text">Q10: Which simple method is used for accessing and changing both the text and markup markup inside an HTML element?</div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-label"><input type="radio" name="q10" value="A"> style</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q10" value="B"> innerHTML</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q10" value="C"> setAttribute</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q10" value="D"> parentNode</label></li>
+            </ul>
+        </div>
+
+        <div class="question-card" data-q="11">
+            <div class="question-text">Q11: In JavaScript and the DOM, CSS property names that contain hyphens (such as background-color) are converted into:</div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-label"><input type="radio" name="q11" value="A"> Uppercase strings</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q11" value="B"> Camel case names</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q11" value="C"> Lowercase underscore names</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q11" value="D"> Static constants</label></li>
+            </ul>
+        </div>
+
+        <div class="question-card" data-q="12">
+            <div class="question-text">Q12: Does the method document.createElement() automatically insert the created node onto the page view?</div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-label"><input type="radio" name="q12" value="A"> Yes, it automatically inserts it at the top of the body branch</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q12" value="B"> No, it creates a new DOM node but does not insert it on the page automatically</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q12" value="C"> Yes, it overwrites the current root node immediately</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q12" value="D"> No, it can only create temporary attributes, not structural elements</label></li>
+            </ul>
+        </div>
+
+        <div class="question-card" data-q="13">
+            <div class="question-text">Q13: Which method is used to insert a child node AFTER any existing children of the node it is called on?</div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-label"><input type="radio" name="q13" value="A"> insertBefore()</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q13" value="B"> appendChild()</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q13" value="C"> replaceChild()</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q13" value="D"> createTextNode()</label></li>
+            </ul>
+        </div>
+
+        <div class="question-card" data-q="14">
+            <div class="question-text">Q14: Which property is used to return the direct parent node of a specified element node within the tree?</div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-label"><input type="radio" name="q14" value="A"> parentNode</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q14" value="B"> childNodes</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q14" value="C"> rootNode</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q14" value="D"> siblingNode</label></li>
+            </ul>
+        </div>
+
+        <div class="question-card" data-q="15">
+            <div class="question-text">Q15: Which method is used to attach an event handler function to a specified DOM element to handle behaviors like button clicks?</div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-label"><input type="radio" name="q15" value="A"> createEventListener()</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q15" value="B"> addEventListener()</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q15" value="C"> dispatchEvent()</label></li>
+                <li class="option-item"><label class="option-label"><input type="radio" name="q15" value="D"> attachHandler()</label></li>
+            </ul>
+        </div>
+
+        <div class="navigation-buttons" id="nav-block">
+            <button type="button" class="btn btn-prev" id="btn-prev" onclick="changeQuestion(-1)" disabled>Previous</button>
+            <button type="button" class="btn btn-next" id="btn-next" onclick="changeQuestion(1)">Next</button>
+        </div>
+    </form>
+
+    <div id="result-section">
+        <h2>Quiz Completed!</h2>
+        <div class="score-box" id="score-text">0 / 15</div>
+        <div class="feedback-box" id="feedback-text"></div>
+        <button type="button" class="btn btn-restart" onclick="location.reload()">Restart Quiz</button>
+    </div>
+</div>
+
+<script>
+    let currentStep = 1;
+    const totalQuestions = 15;
+    
+    const answers = {
+        q1: 'C', q2: 'D', q3: 'A', q4: 'B', q5: 'C',
+        q6: 'B', q7: 'B', q8: 'B', q9: 'A', q10: 'B',
+        q11: 'B', q12: 'B', q13: 'B', q14: 'A', q15: 'B'
+    };
+
+    function updateUI() {
+        document.getElementById('question-counter').innerText = `Question ${currentStep} of ${totalQuestions}`;
+        
+        const progressPercent = (currentStep / totalQuestions) * 100;
+        document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+        document.querySelectorAll('.question-card').forEach((card, index) => {
+            if (index + 1 === currentStep) {
+                card.classList.add('active');
+            } else {
+                card.classList.remove('active');
+            }
+        });
+
+        document.getElementById('btn-prev').disabled = (currentStep === 1);
+        
+        if (currentStep === totalQuestions) {
+            document.getElementById('btn-next').innerText = "Submit Answers";
+            document.getElementById('btn-next').style.backgroundColor = "#2ecc71";
+        } else {
+            document.getElementById('btn-next').innerText = "Next";
+            document.getElementById('btn-next').style.backgroundColor = "#0076a3";
+        }
+    }
+
+    function changeQuestion(direction) {
+        if (direction === 1 && currentStep === totalQuestions) {
+            calculateScore();
+            return;
+        }
+
+        currentStep += direction;
+        if (currentStep < 1) currentStep = 1;
+        if (currentStep > totalQuestions) currentStep = totalQuestions;
+        
+        updateUI();
+    }
+
+    function calculateScore() {
+        let score = 0;
+
+        for (let i = 1; i <= totalQuestions; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            if (selected && selected.value === answers[`q${i}`]) {
+                score++;
+            }
+        }
+
+        document.getElementById('quiz-form').style.display = 'none';
+        document.querySelector('.progress-container').style.display = 'none';
+        document.getElementById('question-counter').style.display = 'none';
+
+        const resultSection = document.getElementById('result-section');
+        resultSection.style.display = 'block';
+        document.getElementById('score-text').innerText = `${score} / ${totalQuestions}`;
+
+        const feedbackText = document.getElementById('feedback-text');
+        if (score >= 12) {
+            feedbackText.innerHTML = "<strong>Outstanding Performance!</strong><br>You have perfectly mastered Document Object Model (DOM) node traversing and manipulation techniques.";
+        } else if (score >= 8) {
+            feedbackText.innerHTML = "<strong>Good Job!</strong><br>You passed the assessment. Review DOM method definitions and event handlers to achieve perfect score.";
+        } else {
+            feedbackText.innerHTML = "<strong>Needs Review.</strong><br>We highly recommend reviewing Chapter 12 lecture slides on structural node manipulation and trying again.";
+        }
+    }
+</script>
+
+</body>
+</html>
